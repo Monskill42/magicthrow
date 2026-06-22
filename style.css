@@ -1,7 +1,7 @@
 :root {
-  --status-height: 64px;
-  --icon-size: clamp(60px, 12.6vw, 86px);
-  --label-size: clamp(12px, 3vw, 20px);
+  --status-height: 56px;
+  --icon-size: clamp(48px, 10.8vw, 76px);
+  --label-size: clamp(11px, 2.55vw, 18px);
   --safe-bottom: max(env(safe-area-inset-bottom), 12px);
 }
 
@@ -77,8 +77,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: max(env(safe-area-inset-top), 12px) clamp(18px, 6vw, 46px) 0;
-  font-size: clamp(17px, 4vw, 28px);
+  padding: max(env(safe-area-inset-top), 10px) clamp(16px, 5.4vw, 42px) 0;
+  font-size: clamp(15px, 3.25vw, 24px);
   letter-spacing: 0;
   text-shadow: 0 1px 4px rgba(0, 0, 0, .65);
 }
@@ -86,7 +86,7 @@ button {
 .status-icons {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 5px;
   font-size: .92em;
 }
 
@@ -102,9 +102,9 @@ button {
 }
 
 .wifi {
-  width: 24px;
-  height: 15px;
-  border: 3px solid #fff;
+  width: 20px;
+  height: 13px;
+  border: 2px solid #fff;
   border-bottom: 0;
   border-radius: 24px 24px 0 0;
   position: relative;
@@ -136,8 +136,8 @@ button {
 }
 
 .bars {
-  width: 20px;
-  height: 18px;
+  width: 17px;
+  height: 15px;
   display: inline-block;
   background: linear-gradient(to top, #fff 40%, transparent 40%) 0 100% / 4px 100% no-repeat,
     linear-gradient(to top, #fff 58%, transparent 58%) 6px 100% / 4px 100% no-repeat,
@@ -146,8 +146,8 @@ button {
 }
 
 .battery {
-  width: 17px;
-  height: 25px;
+  width: 14px;
+  height: 21px;
   border: 2px solid #fff;
   border-radius: 3px;
   position: relative;
@@ -200,7 +200,7 @@ button {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   justify-items: center;
   align-items: start;
-  gap: clamp(26px, 7vh, 66px) clamp(8px, 3vw, 28px);
+  gap: clamp(20px, 5.8vh, 54px) clamp(6px, 2.4vw, 24px);
 }
 
 .home-grid {
@@ -231,7 +231,7 @@ button {
 }
 
 .label {
-  width: min(100%, 112px);
+  width: min(100%, 96px);
   min-height: 1.15em;
   overflow: hidden;
   display: -webkit-box;
@@ -526,7 +526,7 @@ button {
   z-index: 10;
   left: clamp(24px, 6vw, 72px);
   right: clamp(24px, 6vw, 72px);
-  bottom: calc(var(--safe-bottom) + 34px);
+  bottom: calc(var(--safe-bottom) + 30px);
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: clamp(14px, 5vw, 58px);
@@ -535,15 +535,15 @@ button {
 }
 
 .dock-app .icon {
-  width: clamp(64px, 13.6vw, 92px);
-  height: clamp(64px, 13.6vw, 92px);
+  width: clamp(52px, 11.5vw, 80px);
+  height: clamp(52px, 11.5vw, 80px);
 }
 
 .page-dots {
   position: absolute;
   z-index: 9;
   left: 50%;
-  bottom: calc(var(--safe-bottom) + 196px);
+  bottom: calc(var(--safe-bottom) + 172px);
   transform: translateX(-50%);
   display: flex;
   gap: 13px;
@@ -551,8 +551,8 @@ button {
 
 .page-dots span,
 .drawer-dots span {
-  width: 12px;
-  height: 12px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: rgba(255, 255, 255, .42);
 }
@@ -601,7 +601,7 @@ button {
 }
 
 .search-row {
-  height: clamp(58px, 10vh, 84px);
+  height: clamp(48px, 8.2vh, 72px);
   border-radius: 999px;
   background: rgba(255, 255, 255, .16);
   display: flex;
@@ -609,7 +609,7 @@ button {
   justify-content: space-between;
   padding: 0 clamp(20px, 5vw, 36px);
   color: rgba(255, 255, 255, .48);
-  font-size: clamp(22px, 4vw, 32px);
+  font-size: clamp(18px, 3.3vw, 28px);
   font-weight: 700;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
 }
@@ -623,13 +623,13 @@ button {
 }
 
 .drawer-grid {
-  margin-top: clamp(64px, 10vh, 100px);
-  row-gap: clamp(48px, 8vh, 86px);
+  margin-top: clamp(48px, 8vh, 82px);
+  row-gap: clamp(36px, 6.5vh, 72px);
 }
 
 .drawer-grid .label {
-  font-size: clamp(13px, 3.2vw, 24px);
-  width: min(100%, 124px);
+  font-size: clamp(11px, 2.7vw, 20px);
+  width: min(100%, 106px);
 }
 
 .folder {
@@ -856,7 +856,9 @@ button {
 
 @media (max-width: 420px) {
   :root {
-    --icon-size: clamp(56px, 13.2vw, 70px);
+    --status-height: 52px;
+    --icon-size: clamp(46px, 11.6vw, 58px);
+    --label-size: clamp(10px, 2.65vw, 13px);
   }
 
   .home-grid {
@@ -867,7 +869,16 @@ button {
   .dock {
     left: 22px;
     right: 22px;
-    gap: 14px;
+    gap: 12px;
+  }
+
+  .dock-app .icon {
+    width: clamp(50px, 13vw, 58px);
+    height: clamp(50px, 13vw, 58px);
+  }
+
+  .page-dots {
+    bottom: calc(var(--safe-bottom) + 148px);
   }
 
   .drawer-content {
