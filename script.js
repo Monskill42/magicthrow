@@ -38,16 +38,23 @@
     let cardRenderedRotation = -7;
     let cardRaf = null;
     let cardHistory = [];
-    let voiceRecognition = null;
-    let voiceStarted = false;
-    let recognitionRunning = false;
-    let voiceRestartTimer = null;
-    let audioContext;
-let analyser;
-let microphone;
-let audioData;
-let voiceLevel = 0;
+    let longPressTimer = null;
+let longPressTriggered = false;
+    
+function startLongPress() {
+    longPressTriggered = false;
 
+    clearTimeout(longPressTimer);
+
+    longPressTimer = setTimeout(() => {
+        longPressTriggered = true;
+        showFoldedCard();
+    }, 3000); // 3 seconds
+}
+
+function cancelLongPress() {
+    clearTimeout(longPressTimer);
+}
     function setClock() {
         const now = new Date();
         clock.textContent = now.toLocaleTimeString([], {
@@ -64,143 +71,9 @@ let voiceLevel = 0;
             Promise.resolve(fn.call(root)).then(hideTip).catch(showTip);
         }
     }
-    async function startAudioMonitor() {
-
-  try {
-
-    const stream =
-      await navigator.mediaDevices.getUserMedia({
-        audio: true
-      });
-
-    audioContext =
-      new (window.AudioContext || window.webkitAudioContext)();
-
-    analyser =
-      audioContext.createAnalyser();
-
-    analyser.fftSize = 256;
-
-    microphone =
-      audioContext.createMediaStreamSource(stream);
-
-    microphone.connect(analyser);
-
-    audioData =
-      new Uint8Array(analyser.frequencyBinCount);
-
-    monitorAudio();
-
-  } catch (err) {
-
-    console.log("Mic access denied");
-
-  }
-
-}
-function monitorAudio() {
-
-  analyser.getByteFrequencyData(audioData);
-
-  let sum = 0;
-
-  for(let i = 0; i < audioData.length; i++) {
-    sum += audioData[i];
-  }
-
-  voiceLevel = sum / audioData.length;
-
-  requestAnimationFrame(monitorAudio);
-
-}
-    function startVoiceControl() {
-        if (voiceStarted) return;
-
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) return;
-
-        voiceRecognition = new SpeechRecognition();
-        voiceRecognition.continuous = true;
-        voiceRecognition.interimResults = true;
-        voiceRecognition.lang = "en-US";
-        voiceRecognition.lang = "en-IN";
-        voiceRecognition.maxAlternatives = 10;
-        voiceRecognition.addEventListener("start", () => {
-            recognitionRunning = true;
-        });
-
-        voiceRecognition.addEventListener("end", () => {
-            recognitionRunning = false;
-        });
-
-        voiceRecognition.addEventListener("result", (event) => {
-
-            const result =
-                event.results[event.results.length - 1];
-
-            const transcript =
-                result[0].transcript.toLowerCase();
-
-            console.log(transcript);
-
-            if (
-    isThrowCommand(transcript) &&
-    voiceLevel > 8
-) {
-    showFoldedCard();
-}
-
-        });
-
-        voiceRecognition.addEventListener("end", () => {
-
-            if (!voiceStarted) return;
-
-            window.clearTimeout(voiceRestartTimer);
-
-            voiceRestartTimer = setTimeout(() => {
-
-                if (cardMode) return;
-
-                try {
-                    voiceRecognition.start();
-                    startAudioMonitor();
-                } catch (e) { }
-
-            }, 2000);
-
-        });
-
-        try {
-            voiceRecognition.start();
-            startAudioMonitor();
-            voiceStarted = true;
-        } catch (error) {
-            voiceStarted = false;
-        }
-    }
-
-    function isThrowCommand(transcript) {
-
-        transcript = transcript
-            .toLowerCase()
-            .trim();
-
-        const commands = [
-            "throw",
-            "through",
-            "thro",
-            "throw card",
-            "show card",
-            "card",
-            "open card"
-        ];
-
-        return commands.some(cmd =>
-            transcript.includes(cmd)
-        );
-    }
-
+    
+    
+    
     function showTip() {
         fullscreenTip.classList.add("show");
         window.setTimeout(hideTip, 2800);
@@ -284,11 +157,7 @@ function monitorAudio() {
     }
 
     function showFoldedCard() {
-        if (voiceRecognition) {
-            try {
-                voiceRecognition.stop();
-            } catch (e) { }
-        }
+        
         if (cardMode) return;
 
         closeDrawer(true);
@@ -324,17 +193,7 @@ function monitorAudio() {
 
         window.setTimeout(() => {
             cardMode = false;
-            if (voiceRecognition && voiceStarted) {
-
-                setTimeout(() => {
-
-                    try {
-                        voiceRecognition.start();
-                    } catch (e) { }
-
-                }, 1200);
-
-            }
+            
             cardLayer.classList.remove("active");
             cardLayer.setAttribute("aria-hidden", "true");
             foldedCard.classList.remove("throwing");
@@ -427,7 +286,7 @@ function monitorAudio() {
         if (cardMode) return;
 
         requestFullScreen();
-        startVoiceControl();
+        
 
         startY = y;
         startX = x;
@@ -439,9 +298,17 @@ function monitorAudio() {
         gestureActive = true;
         pointerId = id;
         drawer.classList.remove("animating");
+        startLongPress();
     }
 
     function updateGesture(x, y, target) {
+        if (
+    Math.abs(x - startX) > 15 ||
+    Math.abs(y - startY) > 15
+) {
+    cancelLongPress();
+}
+
         if (!gestureActive) return;
 
         const dx = Math.abs(x - startX);
@@ -467,6 +334,7 @@ function monitorAudio() {
     }
 
     function endGesture() {
+        cancelLongPress();
         if (!gestureActive) return;
 
         if (horizontalDragging) {
@@ -536,6 +404,7 @@ function monitorAudio() {
     });
 
     phone.addEventListener("pointercancel", () => {
+        cancelLongPress();
         if (!dragging && !horizontalDragging) return;
         dragging = false;
         decidingGesture = false;
@@ -557,7 +426,7 @@ function monitorAudio() {
 
     fullscreenTip.addEventListener("click", () => {
         requestFullScreen();
-        startVoiceControl();
+        
     });
 
     foldedCard.addEventListener("pointerdown", beginCardDrag);
@@ -583,9 +452,3 @@ function monitorAudio() {
         if (!document.fullscreenElement) showTip();
     }, 900);
 })();
-console.log(
-  "Voice:",
-  voiceLevel,
-  "Text:",
-  transcript
-);
