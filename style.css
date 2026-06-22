@@ -864,7 +864,7 @@ button {
   position: absolute;
   left: 50%;
   top: 46%;
-  width: clamp(118px, 34vw, 210px);
+  width: clamp(220px, 50vw, 380px);
   aspect-ratio: 390 / 487;
   transform: translate(-50%, -50%) translate3d(var(--card-x), var(--card-y), 0) rotate(var(--card-rotate)) scale(var(--card-scale));
   transform-origin: center;
@@ -981,12 +981,12 @@ button {
 
   .folded-card {
     top: 44%;
-    width: clamp(108px, 31vw, 138px);
+    width: clamp(180px, 55vw, 280px);
   }
 }
 
 @media (max-width: 380px) {
   .folded-card {
-    width: clamp(102px, 30vw, 128px);
+    width: clamp(170px, 52vw, 260px);
   }
 }
