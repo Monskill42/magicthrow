@@ -40,7 +40,15 @@
     let cardHistory = [];
     let longPressTimer = null;
 let longPressTriggered = false;
+let pinchStartDistance = 0;
+let pinchActive = false;
     
+function getDistance(t1, t2) {
+    const dx = t2.clientX - t1.clientX;
+    const dy = t2.clientY - t1.clientY;
+
+    return Math.sqrt(dx * dx + dy * dy);
+}
 function startLongPress() {
     longPressTriggered = false;
 
@@ -411,6 +419,106 @@ function cancelLongPress() {
         horizontalDragging = false;
         drawerOpen ? openDrawer(true) : closeDrawer(true);
     });
+    phone.addEventListener("touchstart", (e) => {
+
+    if (e.touches.length === 2) {
+
+        pinchActive = true;
+
+        pinchStartDistance = getDistance(
+            e.touches[0],
+            e.touches[1]
+        );
+
+    }
+
+}, { passive: true });
+
+
+phone.addEventListener("touchmove", (e) => {
+
+    if (!pinchActive) return;
+
+    if (e.touches.length !== 2) return;
+
+    const distance = getDistance(
+        e.touches[0],
+        e.touches[1]
+    );
+
+    const diff = distance - pinchStartDistance;
+
+    if (!cardMode && diff > 80) {
+
+        const centerX =
+            (e.touches[0].clientX + e.touches[1].clientX) / 2;
+
+        const centerY =
+            (e.touches[0].clientY + e.touches[1].clientY) / 2;
+
+        showFoldedCard();
+
+        requestAnimationFrame(() => {
+
+            setCardPosition(
+                centerX - window.innerWidth / 2,
+                centerY - window.innerHeight / 2,
+                -7,
+                true
+            );
+
+        });
+
+        pinchActive = false;
+    }
+
+}, { passive: true });
+foldedCard.addEventListener("touchstart", (e) => {
+
+    if (e.touches.length === 2) {
+
+        pinchActive = true;
+
+        pinchStartDistance = getDistance(
+            e.touches[0],
+            e.touches[1]
+        );
+
+    }
+
+}, { passive: true });
+
+
+foldedCard.addEventListener("touchmove", (e) => {
+
+    if (!cardMode) return;
+
+    if (!pinchActive) return;
+
+    if (e.touches.length !== 2) return;
+
+    const distance = getDistance(
+        e.touches[0],
+        e.touches[1]
+    );
+
+    const diff = pinchStartDistance - distance;
+
+    if (diff > 60) {
+
+        hideFoldedCard(false);
+
+        pinchActive = false;
+    }
+
+}, { passive: true });
+phone.addEventListener("touchend", () => {
+    pinchActive = false;
+});
+
+foldedCard.addEventListener("touchend", () => {
+    pinchActive = false;
+});
 
     phone.addEventListener("wheel", (event) => {
         if (cardMode) return;
