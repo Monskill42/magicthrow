@@ -42,6 +42,11 @@
     let voiceStarted = false;
     let recognitionRunning = false;
     let voiceRestartTimer = null;
+    let audioContext;
+let analyser;
+let microphone;
+let audioData;
+let voiceLevel = 0;
 
     function setClock() {
         const now = new Date();
@@ -59,7 +64,55 @@
             Promise.resolve(fn.call(root)).then(hideTip).catch(showTip);
         }
     }
+    async function startAudioMonitor() {
 
+  try {
+
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        audio: true
+      });
+
+    audioContext =
+      new (window.AudioContext || window.webkitAudioContext)();
+
+    analyser =
+      audioContext.createAnalyser();
+
+    analyser.fftSize = 256;
+
+    microphone =
+      audioContext.createMediaStreamSource(stream);
+
+    microphone.connect(analyser);
+
+    audioData =
+      new Uint8Array(analyser.frequencyBinCount);
+
+    monitorAudio();
+
+  } catch (err) {
+
+    console.log("Mic access denied");
+
+  }
+
+}
+function monitorAudio() {
+
+  analyser.getByteFrequencyData(audioData);
+
+  let sum = 0;
+
+  for(let i = 0; i < audioData.length; i++) {
+    sum += audioData[i];
+  }
+
+  voiceLevel = sum / audioData.length;
+
+  requestAnimationFrame(monitorAudio);
+
+}
     function startVoiceControl() {
         if (voiceStarted) return;
 
@@ -90,9 +143,12 @@
 
             console.log(transcript);
 
-            if (isThrowCommand(transcript)) {
-                showFoldedCard();
-            }
+            if (
+    isThrowCommand(transcript) &&
+    voiceLevel > 8
+) {
+    showFoldedCard();
+}
 
         });
 
@@ -108,6 +164,7 @@
 
                 try {
                     voiceRecognition.start();
+                    startAudioMonitor();
                 } catch (e) { }
 
             }, 2000);
@@ -116,6 +173,7 @@
 
         try {
             voiceRecognition.start();
+            startAudioMonitor();
             voiceStarted = true;
         } catch (error) {
             voiceStarted = false;
@@ -525,3 +583,9 @@
         if (!document.fullscreenElement) showTip();
     }, 900);
 })();
+console.log(
+  "Voice:",
+  voiceLevel,
+  "Text:",
+  transcript
+);
