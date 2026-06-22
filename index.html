@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Galaxy Home Screen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="phone" id="phone">
+    <div class="wallpaper"></div>
+    <button class="fullscreen-tip" id="fullscreenTip" type="button">Tap for fullscreen</button>
+
+    <header class="status-bar" aria-hidden="true">
+      <span id="clock">08:24</span>
+      <span class="status-icons">
+        <span class="tiny-icon">▣</span>
+        <span class="wifi"></span>
+        <span class="lte">Vo))<br>LTE1</span>
+        <span class="bars"></span>
+        <span>96%</span>
+        <span class="battery"></span>
+      </span>
+    </header>
+
+    <section class="home-area" id="homeArea">
+      <div class="pages" id="pages">
+        <section class="page page-with-icons" aria-label="Home page 1">
+          <div class="app-grid home-grid">
+            <button class="app">
+              <span class="icon purple qr"><span></span></span>
+              <span class="label">Scan any QR</span>
+            </button>
+            <button class="app">
+              <span class="icon gray chrome">G</span>
+              <span class="label">Chrono-Snap - Tim...</span>
+            </button>
+            <button class="app">
+              <span class="icon white home-mark"></span>
+              <span class="label">GymTracker</span>
+            </button>
+            <button class="app">
+              <span class="icon coin lock">Rs</span>
+              <span class="label">Pocket Money</span>
+            </button>
+            <button class="app">
+              <span class="icon coin">Rs</span>
+              <span class="label">Pocket Money</span>
+            </button>
+            <button class="app">
+              <span class="icon indigo clock-mark"></span>
+              <span class="label">Clock</span>
+            </button>
+            <button class="app">
+              <span class="icon white youtube"></span>
+              <span class="label">YouTube</span>
+            </button>
+            <button class="app">
+              <span class="icon white target"></span>
+              <span class="label">DrTrust 360</span>
+            </button>
+            <button class="app">
+              <span class="icon alarm"></span>
+              <span class="label">Alarmy</span>
+            </button>
+            <button class="app">
+              <span class="icon white paytm"></span>
+              <span class="label">Scan &amp; Pay</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="page empty-page" aria-label="Home page 2"></section>
+        <section class="page empty-page" aria-label="Home page 3"></section>
+      </div>
+    </section>
+
+    <nav class="page-dots" id="homeDots" aria-hidden="true">
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+    </nav>
+
+    <nav class="dock" aria-label="Dock apps">
+      <button class="app dock-app"><span class="icon white messages"></span></button>
+      <button class="app dock-app"><span class="icon green phone-mark"></span></button>
+      <button class="app dock-app"><span class="icon camera"></span></button>
+      <button class="app dock-app"><span class="icon instagram"></span></button>
+      <button class="app dock-app"><span class="icon whatsapp"></span></button>
+    </nav>
+
+    <div class="gesture-bar" aria-hidden="true"></div>
+
+    <section class="drawer" id="drawer" aria-label="App drawer">
+      <div class="drawer-scrim"></div>
+      <div class="drawer-content">
+        <div class="search-row">
+          <span>Search</span>
+          <button type="button" aria-label="More options">⋮</button>
+        </div>
+        <div class="app-grid drawer-grid">
+          <button class="app"><span class="icon folder mini-icons"></span><span class="label">Samsung</span></button>
+          <button class="app"><span class="icon folder google-folder"></span><span class="label">Google</span></button>
+          <button class="app"><span class="icon white onedrive"></span><span class="label">OneDrive</span></button>
+          <button class="app"><span class="icon white play"></span><span class="label">Play Store</span></button>
+          <button class="app"><span class="icon store"></span><span class="label">Galaxy Store</span></button>
+          <button class="app"><span class="icon green phone-mark"></span><span class="label">Phone</span></button>
+          <button class="app"><span class="icon white messages"></span><span class="label">Messages</span></button>
+          <button class="app"><span class="icon camera"></span><span class="label">Camera</span></button>
+          <button class="app"><span class="icon gallery"></span><span class="label">Gallery</span></button>
+          <button class="app"><span class="icon indigo clock-mark"></span><span class="label">Clock</span></button>
+          <button class="app"><span class="icon contacts"></span><span class="label">Contacts</span></button>
+          <button class="app"><span class="icon settings"></span><span class="label">Settings</span></button>
+          <button class="app"><span class="icon calendar">22</span><span class="label">Calendar</span></button>
+          <button class="app"><span class="icon calc"></span><span class="label">Calculator</span></button>
+          <button class="app"><span class="icon gaming"></span><span class="label">Gaming Hub</span></button>
+          <button class="app"><span class="icon news">News</span><span class="label">Samsung News</span></button>
+          <button class="app"><span class="icon white gemini"></span><span class="label">Gemini</span></button>
+          <button class="app"><span class="icon white target"></span><span class="label">DrTrust 360</span></button>
+          <button class="app"><span class="icon telegram"></span><span class="label">Telegram</span></button>
+          <button class="app"><span class="icon anilab"></span><span class="label">Anilab</span></button>
+          <button class="app"><span class="icon zarchiver">ZA</span><span class="label">ZArchiver</span></button>
+          <button class="app"><span class="icon white chatgpt"></span><span class="label">ChatGPT</span></button>
+        </div>
+        <div class="drawer-dots" aria-hidden="true">
+          <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
