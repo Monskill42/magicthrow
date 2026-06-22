@@ -886,3 +886,47 @@ button {
     padding-right: 18px;
   }
 }
+#magicCard{
+    position:fixed;
+    width:180px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+    translate(-50%,120vh)
+    rotate(-25deg)
+    scale(.2);
+
+    opacity:0;
+
+    z-index:999999;
+
+    pointer-events:none;
+
+    will-change:transform;
+
+    transition:
+    transform .8s cubic-bezier(.22,1,.36,1),
+    opacity .8s ease;
+}
+
+#magicCard.active{
+
+    opacity:1;
+
+    pointer-events:auto;
+
+    transform:
+    translate(-50%,-50%)
+    rotate(0deg)
+    scale(1);
+
+}
+
+#magicCard img{
+    width:100%;
+    display:block;
+    user-select:none;
+    -webkit-user-drag:none;
+}
