@@ -866,7 +866,7 @@ button {
   position: absolute;
   left: 50%;
   top: 46%;
-  width: clamp(180px, 40vw, 300px);
+  width: clamp(150px, 30vw, 200px);
   aspect-ratio: 390 / 487;
   transform: translate(-50%, -50%) translate3d(var(--card-x), var(--card-y), 0) rotate(var(--card-rotate)) scale(var(--card-scale));
   transform-origin: center;
@@ -945,7 +945,7 @@ button {
   }
 
   .folded-card {
-    width: clamp(112px, 15vw, 190px);
+    width: clamp(150px, 30vw, 200px);
   }
 }
 
@@ -983,13 +983,13 @@ button {
 
   .folded-card {
     top: 44%;
-    width: clamp(180px, 55vw, 280px);
+    width: clamp(150px, 30vw, 200px);
   }
 }
 
 @media (max-width: 380px) {
   .folded-card {
-    width: clamp(170px, 52vw, 260px);
+    width: clamp(150px, 30vw, 200px);
   }
 }
 .folded-card{
