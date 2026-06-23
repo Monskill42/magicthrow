@@ -504,14 +504,17 @@ foldedCard.addEventListener("touchmove", (e) => {
         e.touches[1]
     );
     const scale = Math.max(
-    0.6,
-    distance / pinchStartDistance
+    0.55,
+    Math.min(
+        1.4,
+        distance / pinchStartDistance
+    )
 );
 
-foldedCard.style.transform =
-    `translate(${cardX}px, ${cardY}px)
-     rotate(-7deg)
-     scale(${scale})`;
+foldedCard.style.setProperty(
+    "--card-scale",
+    scale
+);
 
     const diff = pinchStartDistance - distance;
 
@@ -527,7 +530,10 @@ foldedCard.addEventListener("touchend", () => {
 
     pinchActive = false;
 
-    foldedCard.style.transform = "";
+    foldedCard.style.setProperty(
+        "--card-scale",
+        "1"
+    );
 
 });
 
