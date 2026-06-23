@@ -583,10 +583,12 @@ button {
   touch-action: none;
 }
 
-.drawer.animating {
-  transition: transform .36s cubic-bezier(.2, .8, .16, 1);
+.folded-card {
+    transition:
+        transform .25s cubic-bezier(.2,.8,.2,1),
+        opacity .25s ease,
+        filter .25s ease;
 }
-
 .drawer-scrim {
   position: absolute;
   inset: 0;
@@ -989,4 +991,10 @@ button {
   .folded-card {
     width: clamp(170px, 52vw, 260px);
   }
+}
+.folded-card{
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    translate: 0 0;
 }
