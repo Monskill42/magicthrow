@@ -866,7 +866,7 @@ button {
   position: absolute;
   left: 50%;
   top: 46%;
-  width: clamp(220px, 50vw, 380px);
+  width: clamp(180px, 40vw, 300px);
   aspect-ratio: 390 / 487;
   transform: translate(-50%, -50%) translate3d(var(--card-x), var(--card-y), 0) rotate(var(--card-rotate)) scale(var(--card-scale));
   transform-origin: center;
