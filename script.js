@@ -581,3 +581,8 @@ foldedCard.addEventListener("touchend", () => {
         if (!document.fullscreenElement) showTip();
     }, 900);
 })();
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js");
+  });
+}
