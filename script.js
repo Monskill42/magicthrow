@@ -449,7 +449,7 @@ phone.addEventListener("touchmove", (e) => {
 
     const diff = distance - pinchStartDistance;
 
-    if (!cardMode && diff > 30) {
+    if (!cardMode && diff > 20) {
 
         const centerX =
             (e.touches[0].clientX + e.touches[1].clientX) / 2;
@@ -518,7 +518,7 @@ foldedCard.style.setProperty(
 
     const diff = pinchStartDistance - distance;
 
-    if (diff > 30) {
+    if (diff > 20) {
 
         hideFoldedCard(false);
 
